@@ -1,5 +1,7 @@
+'use strict';
+
 window.renderStatistics = function (ctx, names, times) {
-  var RECT_X = 100;  
+  var RECT_X = 100;
   var RECT_Y = 10;
   var RECT_H = 270;
   var RECT_W = 420;
@@ -10,10 +12,10 @@ window.renderStatistics = function (ctx, names, times) {
   var sign = 1;
   ctx.beginPath();
   ctx.lineTo(RECT_X, RECT_Y + RECT_H);
-   
-  var i; 
 
-  function myframe1(x,y, stepX, stepY, iter) {
+  var i;
+
+  function myframe1(x, y, stepX, stepY, iter) {
     for (i = 1; i <= iter; i++) {
       x += stepX;
       ctx.lineTo(x, y);
@@ -23,7 +25,7 @@ window.renderStatistics = function (ctx, names, times) {
     }
   }
 
-  function myframe2(x,y, stepX, stepY, iter) {
+  function myframe2(x, y, stepX, stepY, iter) {
     for (i = 1; i < iter; i++) {
       y += stepY;
       ctx.lineTo(x, y);
@@ -32,9 +34,9 @@ window.renderStatistics = function (ctx, names, times) {
       sign *= -1;
     }
   }
-  
-  myframe2(RECT_X, RECT_Y + RECT_H, 10, -10, RECT_H/10);
-  myframe1(RECT_X, RECT_Y, 10, 10, RECT_W/10);
+
+  myframe2(RECT_X, RECT_Y + RECT_H, 10, -10, RECT_H / 10);
+  myframe1(RECT_X, RECT_Y, 10, 10, RECT_W / 10);
   ctx.lineTo(RECT_X + RECT_W, RECT_Y + RECT_H);
 
   ctx.closePath();
@@ -49,7 +51,7 @@ window.renderStatistics = function (ctx, names, times) {
 
   var maxIndex = 0;
 
-  for (var i = 1; i < times.length; i++) {
+  for (i = 1; i < times.length; i++) {
     if (times[i] > times[maxIndex]) {
       maxIndex = i;
     }
@@ -58,38 +60,38 @@ window.renderStatistics = function (ctx, names, times) {
   var barHight = 150;
   var barWight = 40;
   var barSpace = 50;
-  var initialX = 160; 
-  
+  var initialX = 160;
+
   var coeff = barHight / (times[maxIndex] - 0); // px;
 
   for (i = 0; i < times.length; i++) {
 
-    (names[i] !='Вы') ? ctx.fillStyle = 'rgba(0, 0, 255, '+ Math.random() +')' : ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+    if (names[i] !== 'Вы') {
+      ctx.fillStyle = 'rgba(0, 0, 255, ' + (Math.random() * 0.8 + 0.2) + ')';
+    } else {
+      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+    }
 
     ctx.fillRect(initialX + i * (barWight + barSpace),
-                 RECT_H - times[i] * coeff - 20,
-                 barWight,
-                 times[i] * coeff            
+        RECT_H - times[i] * coeff - 20,
+        barWight,
+        times[i] * coeff
     );
 
     ctx.fillStyle = 'black';
 
-    ctx.fillText(names[i], 
-                initialX + i * (barWight + barSpace),     
-                RECT_H 
+    ctx.fillText(names[i],
+        initialX + i * (barWight + barSpace),
+        RECT_H
 
     );
-    ctx.fillText(Math.floor(times[i]), 
-                initialX + i * (barWight + barSpace),     
-                RECT_H - times[i] * coeff - 30
-
+    ctx.fillText(Math.floor(times[i]),
+        initialX + i * (barWight + barSpace),
+        RECT_H - times[i] * coeff - 30
     );
 
   }
-  
+
 };
-
-
-
 
 
