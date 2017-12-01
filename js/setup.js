@@ -48,7 +48,8 @@ function rndX(x) {
   return Math.floor((Math.random() * (x - 1)));
 }
 
-for (var i = 0; i < 4; i++) {
+var i;
+for (i = 0; i < 4; i++) {
   wizards[i] = {
     name: names[rndX(8)] + ' ' + surnames[rndX(8)],
     coatColor: coatColors[rndX(8)],
