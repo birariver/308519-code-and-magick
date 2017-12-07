@@ -46,8 +46,11 @@ var openPopup = function () {
 };
 
 var closePopup = function () {
-  setup.classList.add('hidden');
-  document.removeEventListener('keydown', onPopupEscPress);
+  if (document.activeElement !== setup.querySelector('.setup-user-name')) {
+    setup.classList.add('hidden');
+    document.removeEventListener('keydown', onPopupEscPress);
+  }
+
 };
 
 setupOpen.addEventListener('click', function () {
